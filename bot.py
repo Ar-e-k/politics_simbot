@@ -60,4 +60,13 @@ async def end_election(ctx, seats):
     seatlist=count.main(seats, votelist)
     await ctx.send(seatlist)
 
+@client.event
+async def on_command_error(ctx, error):
+    if isinstance(error, coms.MissingRequiredArgument):
+        await ctx.send("Invalid argument\nTry help command name, to see what arguments you require")
+    elif isinstance(error, coms.MissingPermissions):
+        await ctx.send("Dont try it\nIf you need the command please contact an admin")
+    elif isinstance(error, coms.CommandNotFound):
+        await ctx.send("There is no such command\nTry %help command to see the avaliable commands")
+
 client.run('NzgzMDQyODgwMDcxNTMyNTg2.X8U_gg.0OSQgEFuX5v-9ZgefkXWknMFOIY')
