@@ -54,7 +54,7 @@ async def end_election(ctx, seats):
     for msg in Elist:
         message = await ctx.channel.fetch_message(msg)
         reaction = get(message.reactions, emoji='✅')
-        votelist[party]=reaction.count
+        votelist[party]=(reaction.count-1)
         party+=1
     #print(votelist)
     seatlist=count.main(seats, votelist)

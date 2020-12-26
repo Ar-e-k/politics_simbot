@@ -19,7 +19,7 @@ def main(seats, votelist):
 
     voteQ={}
 
-    for seat in seats:
+    for seat in range(seats):
         voteQ=quotients(votelist, voteQ, seatlist)
         keyM=ret_max(voteQ)
         seatlist[keyM]+=1
@@ -29,4 +29,4 @@ def main(seats, votelist):
 if __name__=="__main__":
     seats=16
     votelist={"Party1":0, "P2":2, "P3":3}
-    main(seats, votelist)
+    print(main(seats, votelist))
