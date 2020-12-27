@@ -2,8 +2,6 @@ import discord
 from discord.ext import commands as coms
 from discord.utils import get
 import count
-global Elist
-Elist=[]
 
 client = coms.Bot(command_prefix="%")
 
@@ -25,7 +23,6 @@ async def on_message(msg):
     name=msg.author
     name=str(name).split("#")[0]
     if name=="Election bot":
-        Elist.append(msg.id)
         emoji = client.get_emoji(792376634547634176)
         await msg.add_reaction('\u2705')
 
@@ -39,7 +36,6 @@ async def say(ctx):
 @client.command()
 @coms.has_permissions(administrator=True)
 async def hold_election(ctx):
-    Elist=[]
     #print("here")
     parties=find_parties(client)
     for key in parties:
@@ -51,22 +47,26 @@ async def end_election(ctx, seats):
     #print("Almost there")
     votelist={}
     party=1
-    for msg in Elist:
-        message = await ctx.channel.fetch_message(msg)
+    party_list=list(find_parties(client).keys())
+    async for msg in ctx.channel.history(limit=100):
+        message = await ctx.channel.fetch_message(msg.id)
         reaction = get(message.reactions, emoji='✅')
-        votelist[party]=(reaction.count-1)
-        party+=1
-    #print(votelist)
-    seatlist=count.main(seats, votelist)
+        if type(reaction)!=type(None):
+            votelist[party_list[len(party_list)-party]]=(reaction.count-1)
+            if len(party_list)-party==0:
+                break
+            party+=1
+    print(votelist)
+    seatlist=count.main(int(seats), votelist)
     await ctx.send(seatlist)
 
-@client.event
+'''@client.event
 async def on_command_error(ctx, error):
     if isinstance(error, coms.MissingRequiredArgument):
         await ctx.send("Invalid argument\nTry help command name, to see what arguments you require")
     elif isinstance(error, coms.MissingPermissions):
         await ctx.send("Dont try it\nIf you need the command please contact an admin")
     elif isinstance(error, coms.CommandNotFound):
-        await ctx.send("There is no such command\nTry %help command to see the avaliable commands")
+        await ctx.send("There is no such command\nTry %help command to see the avaliable commands")'''
 
 client.run('NzgzMDQyODgwMDcxNTMyNTg2.X8U_gg.0OSQgEFuX5v-9ZgefkXWknMFOIY')
