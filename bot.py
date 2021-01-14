@@ -26,6 +26,15 @@ async def on_message(msg):
         emoji = client.get_emoji(792376634547634176)
         await msg.add_reaction('\u2705')
 
+    if str(msg.channel)=="bird":
+        msg_txt=msg.clean_content
+        for letter in msg_txt:
+            if letter.islower():
+                channel=msg.channel
+                await channel.send("UPPER CASE")
+                break
+
+
     await client.process_commands(msg)
 
 '''@client.command()
@@ -69,4 +78,4 @@ async def on_command_error(ctx, error):
     elif isinstance(error, coms.CommandNotFound):
         await ctx.send("There is no such command\nTry %help command to see the avaliable commands")'''
 
-client.run('NzgzMDQyODgwMDcxNTMyNTg2.X8U_gg.0OSQgEFuX5v-9ZgefkXWknMFOIY')
+client.run('NzgzMDQyODgwMDcxNTMyNTg2.X8U_gg.fyC9O3VC64OdzG3pFMVKPiGwVsU')
