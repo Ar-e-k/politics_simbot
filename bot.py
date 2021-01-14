@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands as coms
 from discord.utils import get
 import count
+import tokn
 
 client = coms.Bot(command_prefix="%")
 
@@ -77,5 +78,6 @@ async def on_command_error(ctx, error):
         await ctx.send("Dont try it\nIf you need the command please contact an admin")
     elif isinstance(error, coms.CommandNotFound):
         await ctx.send("There is no such command\nTry %help command to see the avaliable commands")'''
+tk=tokn.token()
 
-client.run('NzgzMDQyODgwMDcxNTMyNTg2.X8U_gg.fyC9O3VC64OdzG3pFMVKPiGwVsU')
+client.run(tk)
